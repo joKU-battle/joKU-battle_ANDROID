@@ -1,17 +1,16 @@
 package com.example.joku_battle.presentation.navigation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,25 +45,27 @@ fun MainNavigation(
             )
         }
     ) {
-        NavHost(
-            modifier = Modifier.padding(it),
-            navController = navController,
-            startDestination = Route.Home
-        ){
-            composable<Route.Home> {
-                HomeScreen()
-            }
+        Surface (color = Color.White) {
+            NavHost(
+                modifier = Modifier.padding(it),
+                navController = navController,
+                startDestination = Route.Home
+            ) {
+                composable<Route.Home> {
+                    HomeScreen()
+                }
 
-            composable<Route.Quiz> {
-                QuizScreen()
-            }
+                composable<Route.Quiz> {
+                    QuizScreen()
+                }
 
-            composable<Route.Battle> {
-                BattleScreen()
-            }
+                composable<Route.Battle> {
+                    BattleScreen()
+                }
 
-            composable<Route.My> {
-                MyScreen()
+                composable<Route.My> {
+                    MyScreen()
+                }
             }
         }
     }
