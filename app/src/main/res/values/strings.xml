@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">joKU-battle</string>
+    <string name="quiz_challenge_info">건국대학교 %s %s</string>
+    <string name="quiz_challenge_ranking">현재 순위 %d위</string>
+    <string name="quiz_challenge_right">이 문제를 맞춘 사람은 %d명</string>
+    <string name="quiz_challenge_wrong">이 문제를 틀린 사람은 %d명입니다</string>
+    <string name="quiz_challenge_recommend">이 문제는 %d명의 추천을 받았어요!</string>
+    <string name="quiz_challenge_answer">이 문제의 정답은 바로..!</string>
+    <string name="quiz_challenge_answer_textfield">정답을 입력해주세요</string>
+    <string name="quiz_challenge_submit">제출하기</string>
 </resources>
