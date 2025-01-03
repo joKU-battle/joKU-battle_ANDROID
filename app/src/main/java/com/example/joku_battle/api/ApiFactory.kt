@@ -2,6 +2,7 @@ package com.example.joku_battle.api
 
 import com.example.joku_battle.BuildConfig
 import com.example.joku_battle.api.service.QuizService
+import com.example.joku_battle.api.service.RankingService
 import com.example.joku_battle.api.service.UserService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -36,4 +37,5 @@ object ApiFactory {
 object ServicePool {
     val userService = ApiFactory.create<UserService>()
     val quizService = ApiFactory.create<QuizService>()
+    val rankingService = ApiFactory.create<RankingService>()
 }
