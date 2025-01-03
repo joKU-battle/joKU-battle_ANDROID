@@ -1,4 +1,4 @@
-package com.example.joku_battle.presentation.quiz.quizchallenge
+package com.example.joku_battle.presentation.quiz
 
 import androidx.lifecycle.ViewModel
 import com.example.joku_battle.presentation.model.QuizChallengeDetail
