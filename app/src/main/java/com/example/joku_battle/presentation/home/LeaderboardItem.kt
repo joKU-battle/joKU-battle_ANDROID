@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,8 +27,16 @@ import com.example.joku_battle.data.PersonalInfo
 
 @Composable
 fun LeaderBoardItem(personalInfo : PersonalInfo) {
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp), verticalAlignment = Alignment.CenterVertically) {
+    HorizontalDivider(
+        modifier = Modifier
+            .fillMaxWidth(),
+        thickness = 1.dp,
+        color = Color.Gray
+    )
+    Card(modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = Color.White)
+    ) {
+        Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 15.dp), verticalAlignment = Alignment.CenterVertically) {
             when (personalInfo.rank) {
                 1 -> {
                     Image(
@@ -60,7 +71,7 @@ fun LeaderBoardItem(personalInfo : PersonalInfo) {
                 Text(text = personalInfo.department)
             }
             //점수
-            Text(modifier = Modifier.padding(start = 20.dp), text = personalInfo.score.toString(), fontWeight = FontWeight.Bold)
+            Text(modifier = Modifier.padding(start = 20.dp), text = personalInfo.score.toString())
 
         }
 
