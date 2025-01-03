@@ -8,16 +8,25 @@
     <string name="quiz_challenge_wrong">이 문제를 틀린 사람은 %d명입니다</string>
     <string name="quiz_challenge_recommend">이 문제는 %d명의 추천을 받았어요!</string>
     <string name="quiz_challenge_answer">이 문제의 정답은 바로..!</string>
-    <string name="quiz_challenge_answer_textfield">정답을 입력해주세요</string>
 
     <!--BattleChallengeScreen-->
     <string name="battle_challenge_title">오늘의 잼얘는?</string>
-    <string name="battle_challenge_subtitle">오늘의 개그대마왕 선발에 참여해보세요!</string>
+    <string name="battle_challenge_subtitle">오늘의 잼얘왕 선발에 참여해보세요!</string>
     <string name="battle_challenge_ranking">내 저번주 순위 %d위</string>
     <string name="battle_challenge_ranking_sub1">이번 주는 1위를 노려보세요!</string>
     <string name="battle_challenge_ranking_sub2">빨리 제출하면 유리할지도 몰라요!</string>
     <string name="battle_challenge_answer">이번주 나의 잼얘는..!</string>
     <string name="battle_challenge_answer_textfield">잼얘를 입력해주세요</string>
 
+    <!--QuizAddScreen-->
+    <string name="quiz_add_title">오늘의 퀴즈는?</string>
+    <string name="quiz_add_subtitle">오늘의 개그대마왕 선발에 참여해보세요!</string>
+    <string name="quiz_add_problem">내가 낼 문제는 바로..!</string>
+    <string name="quiz_add_problem_textfield">문제를 입력해주세요</string>
+    <string name="quiz_add_answer">이 문제의 정답은 바로..!</string>
+    <string name="quiz_add_submit">출제하기</string>
+
+
     <string name="all_submit">제출하기</string>
+    <string name="all_answer_textfield">정답을 입력해주세요</string>
 </resources>
