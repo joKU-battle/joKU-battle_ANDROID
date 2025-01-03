@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -76,7 +77,9 @@ fun LoginScreen(
         }
     }
     if (loginSuccess) {
-        navigateToHome()
+        LaunchedEffect(Unit) { // Unit은 해당 블록이 한 번만 실행되게 함
+            navigateToHome()
+        }
     }
 }
 
