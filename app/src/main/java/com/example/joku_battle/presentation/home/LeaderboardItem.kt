@@ -26,10 +26,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.joku_battle.R
+import com.example.joku_battle.api.dto.response.RankingUser
 import com.example.joku_battle.data.PersonalInfo
 
 @Composable
-fun LeaderBoardItem(personalInfo: PersonalInfo) {
+fun LeaderBoardItem(personalInfo: RankingUser, rank: Int) {
     HorizontalDivider(
         modifier = Modifier
             .fillMaxWidth(),
@@ -48,7 +49,7 @@ fun LeaderBoardItem(personalInfo: PersonalInfo) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
-                when (personalInfo.rank) {
+                when (rank) {
                     1 -> {
                         Image(
                             painter = painterResource(id = R.drawable.ic_1st_place),
@@ -115,15 +116,14 @@ fun LeaderBoardItem(personalInfo: PersonalInfo) {
 @Preview
 @Composable
 private fun LeaderBoardItemPreview() {
-    val firstPlace = PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 1, 10000)
-    val secondPlace = PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 2, 90)
-    val thirdPlace = PersonalInfo("John Doe", "건국대학교 있는지없는지모르겠는학과명", 3, 80)
-    val notInPodium = PersonalInfo("아주아주아주아주아주아주아주아주긴이름", "건국대학교 컴퓨터 공학부", 4, 70)
+    val firstPlace = RankingUser("John Doe", "건국대학교 컴퓨터공학부", 10000,"")
+    val secondPlace = RankingUser("John Doe", "건국대학교 컴퓨터공학부", 90,"")
+    val thirdPlace = RankingUser("John Doe", "건국대학교 있는지없는지모르겠는학과명", 80,"")
+    val notInPodium = RankingUser("아주아주아주아주아주아주아주아주긴이름", "건국대학교 컴퓨터 공학부", 70,"")
     Column() {
-        LeaderBoardItem(firstPlace)
-        LeaderBoardItem(secondPlace)
-        LeaderBoardItem(thirdPlace)
-        LeaderBoardItem(notInPodium)
+        LeaderBoardItem(firstPlace,1)
+        LeaderBoardItem(secondPlace,2)
+        LeaderBoardItem(thirdPlace,3)
+        LeaderBoardItem(notInPodium,4)
     }
-
 }

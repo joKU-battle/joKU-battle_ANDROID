@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -21,6 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.joku_battle.R
 import com.example.joku_battle.data.PersonalInfo
 
@@ -35,6 +39,11 @@ fun HomeScreen(){
         PersonalInfo("아주아주아주아주아주아주아주아주긴이름", "건국대학교 컴퓨터 공학부", 4, 70),
         PersonalInfo("John Doe","건국대학교 컴퓨터공학부",5,60)
     )
+
+    val viewModel: HomeViewModel= viewModel()
+    val rankingList by viewModel.rankingList.collectAsStateWithLifecycle()
+
+    viewModel.fetchRanking()
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -65,8 +74,8 @@ fun HomeScreen(){
             }
 
             LazyColumn(modifier = Modifier.fillMaxWidth().padding(top = 30.dp)) {
-                items(dummyLeaderboardList){ personalInfo ->
-                    LeaderBoardItem(personalInfo)
+                itemsIndexed(rankingList){ index, user ->
+                    LeaderBoardItem(personalInfo = user, rank = index + 1)
                 }
             }
         }
