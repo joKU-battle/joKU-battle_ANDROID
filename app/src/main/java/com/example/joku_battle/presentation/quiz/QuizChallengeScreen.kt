@@ -30,10 +30,10 @@ import com.example.joku_battle.presentation.component.GrayTextField
 @Composable
 fun QuizChallengeScreen(modifier: Modifier = Modifier) {
     val viewModel: QuizChallengeViewModel = viewModel()
-    val challngeData by viewModel.quizChallegeDetail.collectAsStateWithLifecycle()
+    val challngeData by viewModel.quizChallengeDetail.collectAsStateWithLifecycle()
 
     var answer by remember { mutableStateOf("") }
-    var isButtonEnabled = answer.isNotBlank()
+    val isButtonEnabled = answer.isNotBlank()
 
     Scaffold(
         bottomBar = {
