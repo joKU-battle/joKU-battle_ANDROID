@@ -15,4 +15,7 @@ sealed interface Route {
 
     @Serializable
     data object My: Route
+
+    @Serializable
+    data object QuizChallenge: Route
 }
