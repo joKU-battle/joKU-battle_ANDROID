@@ -44,6 +44,10 @@
     <string name="my_account_password_change">비밀번호 변경</string>
     <string name="my_logout">로그아웃</string>
 
+    <!--SplashScreen-->
+    <string name="splash_title">조KU배틀</string>
+    <string name="splash_subtitle">건국대학교 깔깔게시판</string>
+
 
     <string name="all_submit">제출하기</string>
     <string name="all_answer_textfield">정답을 입력해주세요</string>

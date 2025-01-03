@@ -26,6 +26,7 @@ import com.example.joku_battle.presentation.my.MyScreen
 import com.example.joku_battle.presentation.quiz.quizchallenge.QuizChallengeScreen
 import com.example.joku_battle.presentation.quiz.QuizScreen
 import com.example.joku_battle.presentation.quiz.quizadd.QuizAddScreen
+import com.example.joku_battle.presentation.start.SplashScreen
 
 @Composable
 fun MainNavigation(
@@ -35,7 +36,6 @@ fun MainNavigation(
     var selectedMainBottomTab by remember { mutableStateOf(BottomNavigationItem.HOME) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute by remember { derivedStateOf { navBackStackEntry?.destination?.route } }
-
 
     Scaffold(
         modifier = Modifier
