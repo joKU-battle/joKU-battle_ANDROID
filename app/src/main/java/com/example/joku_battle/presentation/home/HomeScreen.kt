@@ -26,11 +26,11 @@ import com.example.joku_battle.data.PersonalInfo
 @Composable
 fun HomeScreen(){
     val dummyLeaderboardList = listOf(
-        PersonalInfo("John Doe","건국대학교 컴퓨터 공학부",1,100),
-        PersonalInfo("John Doe","건국대학교 컴퓨터 공학부",2,90),
-        PersonalInfo("John Doe","건국대학교 컴퓨터 공학부",3,80),
-        PersonalInfo("John Doe","건국대학교 컴퓨터 공학부",4,70),
-        PersonalInfo("John Doe","건국대학교 컴퓨터 공학부",5,60)
+        PersonalInfo("John Doe","건국대학교 컴퓨터공학부",1,100),
+        PersonalInfo("John Doe","건국대학교 컴퓨터공학부",2,90),
+        PersonalInfo("John Doe","건국대학교 컴퓨터공학부",3,80),
+        PersonalInfo("John Doe","건국대학교 컴퓨터공학부",4,70),
+        PersonalInfo("John Doe","건국대학교 컴퓨터공학부",5,60)
     )
 
     Box(
@@ -55,7 +55,8 @@ fun HomeScreen(){
                 Text(
                     text = "1월 1주차 순위",
                     fontSize = 13.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 4.dp)
                 )
 
             }

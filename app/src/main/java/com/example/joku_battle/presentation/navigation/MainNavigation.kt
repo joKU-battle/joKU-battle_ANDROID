@@ -26,7 +26,7 @@ import com.example.joku_battle.presentation.my.MyScreen
 import com.example.joku_battle.presentation.quiz.quizchallenge.QuizChallengeScreen
 import com.example.joku_battle.presentation.quiz.QuizScreen
 import com.example.joku_battle.presentation.quiz.quizadd.QuizAddScreen
-import com.example.joku_battle.presentation.worldcup.WorldCupScreen
+import com.example.joku_battle.presentation.start.SplashScreen
 
 @Composable
 fun MainNavigation(
@@ -36,7 +36,6 @@ fun MainNavigation(
     var selectedMainBottomTab by remember { mutableStateOf(BottomNavigationItem.HOME) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute by remember { derivedStateOf { navBackStackEntry?.destination?.route } }
-
 
     Scaffold(
         modifier = Modifier
@@ -84,7 +83,10 @@ fun MainNavigation(
                 }
 
                 composable<Route.Battle> {
-                    BattleScreen({ navController.navigate(Route.BattleChallenge) })
+                    BattleScreen({ navController.navigate(Route.BattleChallenge) },
+                        //이후에 잼얘 추가 화면으로 수정할 예정
+                        { navController.navigate(Route.QuizAdd) }
+                    )
                 }
 
                 composable<Route.BattleChallenge> {
@@ -92,7 +94,7 @@ fun MainNavigation(
                 }
 
                 composable<Route.My> {
-                    WorldCupScreen()
+                    MyScreen()
                 }
             }
         }

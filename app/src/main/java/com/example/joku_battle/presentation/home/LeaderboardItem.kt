@@ -45,7 +45,7 @@ fun LeaderBoardItem(personalInfo: PersonalInfo) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row {
+            Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically) {
                 when (personalInfo.rank) {
                     1 -> {
                         Image(
@@ -80,12 +80,16 @@ fun LeaderBoardItem(personalInfo: PersonalInfo) {
                 )
                 Column(modifier = Modifier.padding(start = 10.dp)) {
                     Text(text = personalInfo.name, fontWeight = FontWeight.Bold)
-                    Text(text = personalInfo.department)
+                    Text(text = personalInfo.department, modifier = Modifier.padding(vertical = 4.dp))
                 }
-
             }
+
             //점수
-            Text(modifier = Modifier.padding(end = 24.dp), text = personalInfo.score.toString())
+            Text(
+                modifier = Modifier.padding(end = 20.dp),
+                text = personalInfo.score.toString()+"점",
+                fontWeight = FontWeight.Bold
+            )
 
         }
 
