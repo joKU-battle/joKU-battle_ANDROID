@@ -26,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.joku_battle.R
 import com.example.joku_battle.presentation.component.ChangeButton
 import com.example.joku_battle.presentation.component.GrayTextField
+import com.example.joku_battle.presentation.quiz.QuizChallengeViewModel
 
 @Composable
 fun QuizChallengeScreen(modifier: Modifier = Modifier) {

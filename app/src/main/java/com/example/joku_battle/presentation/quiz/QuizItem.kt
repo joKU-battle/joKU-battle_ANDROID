@@ -1,6 +1,7 @@
 package com.example.joku_battle.presentation.quiz
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,7 +24,7 @@ import com.example.joku_battle.R
 import com.example.joku_battle.presentation.model.QuizChallengeDetail
 
 @Composable
-fun QuizItem(quizInfo: QuizChallengeDetail) {
+fun QuizItem(quizInfo: QuizChallengeDetail, navigateToQuizChallenge: () -> Unit) {
     HorizontalDivider(
         modifier = Modifier
             .fillMaxWidth(),
@@ -37,7 +38,9 @@ fun QuizItem(quizInfo: QuizChallengeDetail) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 15.dp),
+                .padding(horizontal = 20.dp, vertical = 15.dp)
+                .clickable { navigateToQuizChallenge() },
+
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -71,5 +74,5 @@ fun QuizItem(quizInfo: QuizChallengeDetail) {
 @Composable
 fun QuizItemPreview() {
     val quizInfo = QuizChallengeDetail("title", "department", "userName", 1, 1, 1, 38)
-    QuizItem(quizInfo)
+    QuizItem(quizInfo, { })
 }
