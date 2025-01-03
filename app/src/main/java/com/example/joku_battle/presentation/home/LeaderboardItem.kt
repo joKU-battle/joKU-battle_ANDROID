@@ -21,8 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.joku_battle.R
 import com.example.joku_battle.data.PersonalInfo
 
@@ -45,7 +47,7 @@ fun LeaderBoardItem(personalInfo: PersonalInfo) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                 when (personalInfo.rank) {
                     1 -> {
                         Image(
@@ -79,16 +81,28 @@ fun LeaderBoardItem(personalInfo: PersonalInfo) {
                     contentDescription = "leaderboard_profile"
                 )
                 Column(modifier = Modifier.padding(start = 10.dp)) {
-                    Text(text = personalInfo.name, fontWeight = FontWeight.Bold)
-                    Text(text = personalInfo.department, modifier = Modifier.padding(vertical = 4.dp))
+                    Text(
+                        text = personalInfo.name, fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontSize = 16.sp
+                    )
+                    Text(
+                        text = personalInfo.department,
+                        modifier = Modifier.padding(vertical = 4.dp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontSize = 14.sp
+                    )
                 }
             }
 
             //점수
             Text(
                 modifier = Modifier.padding(end = 20.dp),
-                text = personalInfo.score.toString()+"점",
-                fontWeight = FontWeight.Bold
+                text = personalInfo.score.toString() + "점",
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
             )
 
         }
@@ -101,10 +115,10 @@ fun LeaderBoardItem(personalInfo: PersonalInfo) {
 @Preview
 @Composable
 private fun LeaderBoardItemPreview() {
-    val firstPlace = PersonalInfo("John Doe", "건국대학교 컴퓨터 공학부", 1, 100)
-    val secondPlace = PersonalInfo("John Doe", "건국대학교 컴퓨터 공학부", 2, 90)
-    val thirdPlace = PersonalInfo("John Doe", "건국대학교 컴퓨터 공학부", 3, 80)
-    val notInPodium = PersonalInfo("John Doe", "건국대학교 컴퓨터 공학부", 4, 70)
+    val firstPlace = PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 1, 10000)
+    val secondPlace = PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 2, 90)
+    val thirdPlace = PersonalInfo("John Doe", "건국대학교 있는지없는지모르겠는학과명", 3, 80)
+    val notInPodium = PersonalInfo("아주아주아주아주아주아주아주아주긴이름", "건국대학교 컴퓨터 공학부", 4, 70)
     Column() {
         LeaderBoardItem(firstPlace)
         LeaderBoardItem(secondPlace)

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -18,8 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.joku_battle.R
 import com.example.joku_battle.presentation.model.QuizChallengeDetail
 
@@ -44,7 +47,7 @@ fun QuizItem(quizInfo: QuizChallengeDetail, navigateToQuizChallenge: () -> Unit)
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row{
+            Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     modifier = Modifier
                         .padding(start = 10.dp)
@@ -53,20 +56,30 @@ fun QuizItem(quizInfo: QuizChallengeDetail, navigateToQuizChallenge: () -> Unit)
                     contentDescription = "leaderboard_profile"
                 )
                 Column(modifier = Modifier.padding(start = 10.dp)) {
-                    Text(text = quizInfo.title, fontWeight = FontWeight.Bold)
-                    Text(text = quizInfo.department + " " + quizInfo.userName)
+                    Text(
+                        text = quizInfo.title, fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontSize = 16.sp
+                    )
+                    Text(
+                        text = quizInfo.department + " " + quizInfo.userName,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontSize = 14.sp
+                    )
                 }
             }
-            //끝에 위치할 text
+
             Text(
                 modifier = Modifier
-                    .padding(end = 24.dp),
-                text = "추천 "+quizInfo.recommendCount,
+                    .padding(end = 20.dp),
+                text = if (quizInfo.recommendCount > 99) "99+ 추천" else quizInfo.recommendCount.toString()+" 추천",
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
 
         }
-
     }
 }
 
