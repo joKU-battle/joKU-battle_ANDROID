@@ -27,6 +27,7 @@ import com.example.joku_battle.presentation.quiz.quizchallenge.QuizChallengeScre
 import com.example.joku_battle.presentation.quiz.QuizScreen
 import com.example.joku_battle.presentation.quiz.quizadd.QuizAddScreen
 import com.example.joku_battle.presentation.start.SplashScreen
+import com.example.joku_battle.presentation.worldcup.WorldCupScreen
 
 @Composable
 fun MainNavigation(
@@ -83,7 +84,7 @@ fun MainNavigation(
                 }
 
                 composable<Route.Battle> {
-                    BattleScreen({ navController.navigate(Route.BattleChallenge) },
+                    BattleScreen({ navController.navigate(Route.WorldCup) },
                         //이후에 잼얘 추가 화면으로 수정할 예정
                         { navController.navigate(Route.QuizAdd) }
                     )
@@ -93,9 +94,16 @@ fun MainNavigation(
                     BattleChallengeScreen()
                 }
 
+                composable<Route.WorldCup>{
+                    WorldCupScreen(
+                        {navController.navigate(Route.Battle)}
+                    )
+                }
+
                 composable<Route.My> {
                     MyScreen()
                 }
+
             }
         }
     }

@@ -26,5 +26,8 @@ sealed interface Route {
     data object BattleChallenge : Route
 
     @Serializable
+    data object WorldCup : Route
+
+    @Serializable
     data object QuizAdd : Route
 }

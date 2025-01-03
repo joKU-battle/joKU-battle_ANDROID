@@ -35,15 +35,19 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.joku_battle.R
+import com.example.joku_battle.presentation.component.ChangeButton
 
 @Composable
-fun WorldCupScreen(){
+fun WorldCupScreen(
+    navigateToBattle: () -> Unit
+){
     var selectedItem by remember { mutableStateOf<String?>(null) }
     var itemCoordinates by remember { mutableStateOf<Pair<Float, Float>?>(null) }
     var itemSize by remember { mutableStateOf<Pair<Float, Float>?>(null) }
@@ -137,7 +141,15 @@ fun WorldCupScreen(){
 
             visible = true
 
-            Box(
+
+            Image(
+                painter = painterResource(R.drawable.img_light),
+                contentDescription = "",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillHeight
+            )
+
+            LazyColumn(
                 modifier = Modifier
                     .graphicsLayer(
                         translationX = x,
@@ -145,28 +157,59 @@ fun WorldCupScreen(){
                     )
                     .size(widthInDp, heightInDp)
                     .border(1.dp, Color.Black, RoundedCornerShape(10.dp))
-                    .clickable {
-                        participantList.removeAt(0)
-                        participantList.removeAt(0)
-                        participantList.add(selectedItem!!)
-                        if (round == 4){
-                            round = 1
-                            totalRound = 2
-                            qualifyingRound = "4강"
-                        }else if(round == 2 && totalRound == 2){
-                            round = 0
-                            totalRound = 0
-                            qualifyingRound = "결승전"
-                        }else round+=1
-                        selectedItem = null
-                        visible = false
-                        Log.d("zzz",participantList.toString())
-                    }
+                    .background(Color.White, RoundedCornerShape(10.dp))
                     .padding(15.dp)
             ) {
-                Text(
-                    text = selectedItem?: ""
-                )
+                item{
+                    Text(
+                        text = selectedItem?: ""
+                    )
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp)
+                    .align(Alignment.BottomCenter)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .background(
+                            color = Color(0xFFFAC929),
+                            RoundedCornerShape(4.dp)
+                        )
+                        .clickable {
+                            if(qualifyingRound == "결승전"){
+                                navigateToBattle()
+                            }else{
+                                participantList.removeAt(0)
+                                participantList.removeAt(0)
+                                participantList.add(selectedItem!!)
+
+                                if (round == 4) {
+                                    round = 1
+                                    totalRound = 2
+                                    qualifyingRound = "4강"
+                                } else if (round == 2 && totalRound == 2) {
+                                    round = 0
+                                    totalRound = 0
+                                    qualifyingRound = "결승전"
+                                } else round += 1
+                                selectedItem = null
+                                visible = false
+                            }
+                        }
+                ) {
+                    Text(
+                        text = if(qualifyingRound=="결승전") "끝~" else "다음 라운드로",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(700),
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
             }
         }
     }
@@ -289,5 +332,5 @@ fun Battle(
 @Composable
 @Preview(showBackground = true)
 private fun WorldCupScreenPreview(){
-    WorldCupScreen()
+    WorldCupScreen(){}
 }
