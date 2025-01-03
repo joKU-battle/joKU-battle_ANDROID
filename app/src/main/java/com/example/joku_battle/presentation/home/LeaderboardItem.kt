@@ -115,7 +115,7 @@ fun LeaderBoardItem(personalInfo: PersonalInfo) {
 @Preview
 @Composable
 private fun LeaderBoardItemPreview() {
-    val firstPlace = PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 1, 100)
+    val firstPlace = PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 1, 10000)
     val secondPlace = PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 2, 90)
     val thirdPlace = PersonalInfo("John Doe", "건국대학교 있는지없는지모르겠는학과명", 3, 80)
     val notInPodium = PersonalInfo("아주아주아주아주아주아주아주아주긴이름", "건국대학교 컴퓨터 공학부", 4, 70)

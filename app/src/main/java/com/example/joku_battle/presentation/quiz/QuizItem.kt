@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -73,7 +74,7 @@ fun QuizItem(quizInfo: QuizChallengeDetail, navigateToQuizChallenge: () -> Unit)
             Text(
                 modifier = Modifier
                     .padding(end = 20.dp),
-                text = "추천 " + quizInfo.recommendCount,
+                text = if (quizInfo.recommendCount > 99) "99+ 추천" else quizInfo.recommendCount.toString()+" 추천",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )

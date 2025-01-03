@@ -32,7 +32,7 @@ class QuizListViewModel : ViewModel() {
                 ranking = 1,
                 rightCount = 24,
                 wrongCount = 38,
-                recommendCount = 39
+                recommendCount = 999
             ),
             QuizChallengeDetail(
                 title = "머리 빡빡 깎은 중이 떠나가면?",
