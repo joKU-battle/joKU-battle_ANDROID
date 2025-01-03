@@ -31,6 +31,7 @@ import com.example.joku_battle.presentation.navigation.Route
 
 @Composable
 fun QuizScreen(
+    navigateToAddQuiz: () -> Unit,
     navigateToQuizChallenge: () -> Unit
 ) {
     val viewModel: QuizListViewModel = viewModel()
@@ -65,7 +66,7 @@ fun QuizScreen(
                 }
 
                 Button(
-                    onClick = { navigateToQuizChallenge() },
+                    onClick = { navigateToAddQuiz() },
                     shape = RoundedCornerShape(4.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFFD600),
@@ -75,7 +76,7 @@ fun QuizScreen(
                         .width(75.dp)
                         .height(45.dp)
                 ) {
-                    Text(text = "도전", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "등록", fontSize = 14.sp, fontWeight = FontWeight.Bold)
                 }
             }
 
@@ -84,8 +85,8 @@ fun QuizScreen(
                     .fillMaxWidth()
                     .padding(top = 30.dp)
             ) {
-                items(quizList){ quizInfo ->
-                    QuizItem(quizInfo)
+                items(quizList) { quizInfo ->
+                    QuizItem(quizInfo, navigateToQuizChallenge)
                 }
             }
         }
@@ -96,5 +97,8 @@ fun QuizScreen(
 @Preview(showBackground = true)
 private fun QuizScreenPreview() {
     val navController = rememberNavController()
-    QuizScreen({ navController.navigate(Route.QuizChallenge) })
+    QuizScreen(
+        { navController.navigate(Route.QuizAdd) },
+        { navController.navigate(Route.QuizChallenge) }
+    )
 }

@@ -68,7 +68,10 @@ fun MainNavigation(
                 }
 
                 composable<Route.Quiz> {
-                    QuizScreen({ navController.navigate(Route.QuizAdd) })
+                    QuizScreen(
+                        { navController.navigate(Route.QuizAdd) },
+                        { navController.navigate(Route.QuizChallenge) }
+                    )
                 }
 
                 composable<Route.QuizChallenge> {
