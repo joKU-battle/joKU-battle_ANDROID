@@ -24,7 +24,10 @@ import com.example.joku_battle.presentation.component.IDTextField
 import com.example.joku_battle.presentation.component.PasswordTextField
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    navigateToHome: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     val viewModel: LoginViewModel = viewModel()
     val userId by viewModel.userId.collectAsStateWithLifecycle()
     val userPassWord by viewModel.userPassword.collectAsStateWithLifecycle()
@@ -43,7 +46,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(bottom = 2.dp)
         )
         Text(
-            text = stringResource(R.string.splash_subtitle),
+            text = stringResource(R.string.login_subtitle),
             fontSize = 12.sp
         )
         Spacer(Modifier.height(20.dp))
@@ -68,6 +71,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         ) {
             if (isButtonEnabled) {
                 // 로그인 로직
+                navigateToHome()
             }
         }
     }
@@ -76,5 +80,5 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 @Composable
 @Preview(showBackground = true)
 private fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen({})
 }

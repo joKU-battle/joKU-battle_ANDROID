@@ -28,13 +28,14 @@ import com.example.joku_battle.presentation.quiz.QuizScreen
 import com.example.joku_battle.presentation.quiz.quizadd.QuizAddScreen
 import com.example.joku_battle.presentation.start.LoginScreen
 import com.example.joku_battle.presentation.start.SplashScreen
+import com.example.joku_battle.presentation.worldcup.WorldCupScreen
 
 @Composable
 fun MainNavigation(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-    var selectedMainBottomTab by remember { mutableStateOf(BottomNavigationItem.HOME) }
+    var selectedMainBottomTab by remember { mutableStateOf<BottomNavigationItem?>(null) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute by remember { derivedStateOf { navBackStackEntry?.destination?.route } }
 
@@ -51,7 +52,7 @@ fun MainNavigation(
                 )
             ) {
                 BottomNavigation(
-                    selectedItem = selectedMainBottomTab,
+                    selectedItem = selectedMainBottomTab!!,
                     onItemSelected = { selectedMainBottomTab = it },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -65,7 +66,12 @@ fun MainNavigation(
                 startDestination = Route.Login
             ) {
                 composable<Route.Login> {
-                    LoginScreen()
+                    LoginScreen(
+                        {
+                            navController.navigate(Route.Home)
+                            selectedMainBottomTab = BottomNavigationItem.HOME
+                        }
+                    )
                 }
 
                 composable<Route.Home> {
@@ -90,7 +96,7 @@ fun MainNavigation(
                 }
 
                 composable<Route.Battle> {
-                    BattleScreen({ navController.navigate(Route.BattleChallenge) },
+                    BattleScreen({ navController.navigate(Route.WorldCup) },
                         //이후에 잼얘 추가 화면으로 수정할 예정
                         { navController.navigate(Route.QuizAdd) }
                     )
@@ -100,37 +106,50 @@ fun MainNavigation(
                     BattleChallengeScreen()
                 }
 
-                composable<Route.My> {
-                    MyScreen()
+                composable<Route.WorldCup>{
+                    WorldCupScreen(
+                        {navController.navigate(Route.Battle)}
+                    )
                 }
+
+                composable<Route.My> {
+                    MyScreen(
+                        navigateToLogin = {navController.navigate(Route.Login)}
+                    )
+                }
+
             }
         }
     }
 
     LaunchedEffect(key1 = selectedMainBottomTab) {  // 하단 탭 선택에 의한 라우팅 처리
-        val targetRoute = when (selectedMainBottomTab) {
-            BottomNavigationItem.HOME -> Route.Home::class.qualifiedName
-            BottomNavigationItem.QUIZ -> Route.Quiz::class.qualifiedName
-            BottomNavigationItem.BATTLE -> Route.Battle::class.qualifiedName
-            BottomNavigationItem.MY -> Route.My::class.qualifiedName
-        } ?: ""
+        selectedMainBottomTab?.let {
+            val targetRoute = when (it) {
+                BottomNavigationItem.HOME -> Route.Home::class.qualifiedName
+                BottomNavigationItem.QUIZ -> Route.Quiz::class.qualifiedName
+                BottomNavigationItem.BATTLE -> Route.Battle::class.qualifiedName
+                BottomNavigationItem.MY -> Route.My::class.qualifiedName
+            } ?: ""
 
-        navController.navigate(targetRoute) {
-            popUpTo(Route.Home) {
-                saveState = true
-                inclusive = false
+            navController.navigate(targetRoute) {
+                popUpTo(Route.Home) {
+                    saveState = true
+                    inclusive = false
+                }
+                launchSingleTop = true
             }
-            launchSingleTop = true
         }
     }
 
     LaunchedEffect(key1 = currentRoute) {   // 뒤로가기에 의한 하단 탭 변경 처리
-        selectedMainBottomTab = when (currentRoute) {
-            Route.Home::class.qualifiedName -> BottomNavigationItem.HOME
-            Route.Quiz::class.qualifiedName -> BottomNavigationItem.QUIZ
-            Route.Battle::class.qualifiedName -> BottomNavigationItem.BATTLE
-            Route.My::class.qualifiedName -> BottomNavigationItem.MY
-            else -> selectedMainBottomTab
+        if (currentRoute != Route.Login::class.qualifiedName) { // 로그인 화면에서는 탭 변경 금지
+            selectedMainBottomTab = when (currentRoute) {
+                Route.Home::class.qualifiedName -> BottomNavigationItem.HOME
+                Route.Quiz::class.qualifiedName -> BottomNavigationItem.QUIZ
+                Route.Battle::class.qualifiedName -> BottomNavigationItem.BATTLE
+                Route.My::class.qualifiedName -> BottomNavigationItem.MY
+                else -> selectedMainBottomTab
+            }
         }
     }
 }
