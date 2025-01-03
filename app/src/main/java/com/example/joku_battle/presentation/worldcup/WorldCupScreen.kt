@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -41,14 +42,32 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.joku_battle.R
+import com.example.joku_battle.api.dto.response.Content
+import com.example.joku_battle.presentation.battle.battlechallenge.BattleChallengeViewModel
 import com.example.joku_battle.presentation.component.ChangeButton
 
 @Composable
 fun WorldCupScreen(
     navigateToBattle: () -> Unit
 ){
-    var selectedItem by remember { mutableStateOf<String?>(null) }
+    val viewModel: WorldCupViewModel = viewModel()
+//    var participantList by remember {
+//        mutableStateOf(
+//            mutableListOf(
+//                "1","2","3","4","5","6","7","8"
+//            )
+//        )
+//    }
+    LaunchedEffect(Unit) {
+        viewModel.getParticipants()
+    }
+
+    val participantList = viewModel.participantList.collectAsStateWithLifecycle()
+
+    var selectedItem by remember { mutableStateOf<Content?>(null) }
     var itemCoordinates by remember { mutableStateOf<Pair<Float, Float>?>(null) }
     var itemSize by remember { mutableStateOf<Pair<Float, Float>?>(null) }
     var centerY by remember { mutableStateOf(0f) }
@@ -61,13 +80,7 @@ fun WorldCupScreen(
         mutableStateOf(false)
     }
 
-    var participantList by remember {
-        mutableStateOf(
-            mutableListOf(
-                "1","2","3","4","5","6","7","8"
-            )
-        )
-    }
+
 
     Log.d("zz", (itemCoordinates?.second?:0f).toString())
 
@@ -117,11 +130,11 @@ fun WorldCupScreen(
 
                 Battle(
                     modifier = Modifier.weight(1f),
-                    firstParticipant = participantList[0],
-                    secondParticipant = participantList[1],
+                    firstParticipant = participantList.value[0],
+                    secondParticipant = participantList.value[1],
                     selectedItem = selectedItem,
                     onSelectedItemChanged = { item, coordinates, size ->
-                        selectedItem = item
+                        selectedItem = participantList.value.filter { it.joIdx == item }[0]
                         itemCoordinates = coordinates
                         itemSize = size
                     }
@@ -162,7 +175,7 @@ fun WorldCupScreen(
             ) {
                 item{
                     Text(
-                        text = selectedItem?: ""
+                        text = selectedItem?.content?: ""
                     )
                 }
             }
@@ -185,9 +198,9 @@ fun WorldCupScreen(
                             if(qualifyingRound == "결승전"){
                                 navigateToBattle()
                             }else{
-                                participantList.removeAt(0)
-                                participantList.removeAt(0)
-                                participantList.add(selectedItem!!)
+                                participantList.value.removeAt(0)
+                                participantList.value.removeAt(0)
+                                participantList.value.add(selectedItem!!)
 
                                 if (round == 4) {
                                     round = 1
@@ -243,10 +256,10 @@ fun Title(
 @Composable
 fun Battle(
     modifier: Modifier = Modifier,
-    firstParticipant: String,
-    secondParticipant: String,
-    selectedItem: String?,
-    onSelectedItemChanged: (String, Pair<Float, Float>, Pair<Float, Float>) -> Unit
+    firstParticipant: Content,
+    secondParticipant: Content,
+    selectedItem: Content?,
+    onSelectedItemChanged: (Int, Pair<Float, Float>, Pair<Float, Float>) -> Unit
 ){
     var positionA = Offset(0F, 0F)
     var sizeA = IntSize(0,0)
@@ -274,7 +287,7 @@ fun Battle(
                 }
                 .clickable {
                     onSelectedItemChanged(
-                        firstParticipant,
+                        firstParticipant.joIdx,
                         Pair(positionA.x, positionA.y),
                         Pair(sizeA.width.toFloat(), sizeA.height.toFloat())
                     )
@@ -283,7 +296,7 @@ fun Battle(
         ){
             item {
                 Text(
-                    text = firstParticipant
+                    text = firstParticipant.content
                 )
             }
         }
@@ -311,7 +324,7 @@ fun Battle(
                 }
                 .clickable {
                     onSelectedItemChanged(
-                        secondParticipant,
+                        secondParticipant.joIdx,
                         Pair(positionB.x, positionB.y),
                         Pair(sizeB.width.toFloat(), sizeB.height.toFloat())
                     )
@@ -320,7 +333,7 @@ fun Battle(
         ){
             item {
                 Text(
-                    text = secondParticipant
+                    text = secondParticipant.content
                 )
             }
         }

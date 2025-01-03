@@ -5,6 +5,7 @@ import com.example.joku_battle.api.service.BattleService
 import com.example.joku_battle.api.service.QuizService
 import com.example.joku_battle.api.service.RankingService
 import com.example.joku_battle.api.service.UserService
+import com.example.joku_battle.api.service.WorldCupService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -40,4 +41,5 @@ object ServicePool {
     val quizService = ApiFactory.create<QuizService>()
     val battleService = ApiFactory.create<BattleService>()
     val rankingService = ApiFactory.create<RankingService>()
+    val worldCupService = ApiFactory.create<WorldCupService>()
 }
