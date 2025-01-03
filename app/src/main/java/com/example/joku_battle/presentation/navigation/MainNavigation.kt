@@ -20,15 +20,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.joku_battle.presentation.battle.BattleScreen
+import com.example.joku_battle.presentation.battle.battlechallenge.BattleChallengeScreen
 import com.example.joku_battle.presentation.home.HomeScreen
 import com.example.joku_battle.presentation.my.MyScreen
+import com.example.joku_battle.presentation.quiz.quizchallenge.QuizChallengeScreen
 import com.example.joku_battle.presentation.quiz.QuizScreen
 
 @Composable
 fun MainNavigation(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
-){
+) {
     var selectedMainBottomTab by remember { mutableStateOf(BottomNavigationItem.HOME) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute by remember { derivedStateOf { navBackStackEntry?.destination?.route } }
@@ -38,14 +40,23 @@ fun MainNavigation(
         modifier = Modifier
             .systemBarsPadding(),
         bottomBar = {
-            BottomNavigation(
-                selectedItem = selectedMainBottomTab,
-                onItemSelected = { selectedMainBottomTab = it },
-                modifier = Modifier.fillMaxWidth()
-            )
+            if (
+                currentRoute in listOf(
+                    Route.Home::class.qualifiedName,
+                    Route.Quiz::class.qualifiedName,
+                    Route.Battle::class.qualifiedName,
+                    Route.My::class.qualifiedName
+                )
+            ) {
+                BottomNavigation(
+                    selectedItem = selectedMainBottomTab,
+                    onItemSelected = { selectedMainBottomTab = it },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     ) {
-        Surface (color = Color.White) {
+        Surface(color = Color.White) {
             NavHost(
                 modifier = Modifier.padding(it),
                 navController = navController,
@@ -56,11 +67,19 @@ fun MainNavigation(
                 }
 
                 composable<Route.Quiz> {
-                    QuizScreen()
+                    QuizScreen({ navController.navigate(Route.QuizChallenge) })
+                }
+
+                composable<Route.QuizChallenge> {
+                    QuizChallengeScreen()
                 }
 
                 composable<Route.Battle> {
-                    BattleScreen()
+                    BattleScreen({ navController.navigate(Route.BattleChallenge) })
+                }
+
+                composable<Route.BattleChallenge> {
+                    BattleChallengeScreen()
                 }
 
                 composable<Route.My> {
