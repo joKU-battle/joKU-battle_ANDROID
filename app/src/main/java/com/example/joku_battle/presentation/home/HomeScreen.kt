@@ -26,10 +26,10 @@ import com.example.joku_battle.data.PersonalInfo
 @Composable
 fun HomeScreen(){
     val dummyLeaderboardList = listOf(
-        PersonalInfo("John Doe","건국대학교 컴퓨터공학부",1,100),
-        PersonalInfo("John Doe","건국대학교 컴퓨터공학부",2,90),
-        PersonalInfo("John Doe","건국대학교 컴퓨터공학부",3,80),
-        PersonalInfo("John Doe","건국대학교 컴퓨터공학부",4,70),
+        PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 1, 100),
+        PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 2, 90),
+        PersonalInfo("John Doe", "건국대학교 있는지없는지모르겠는학과명", 3, 80),
+        PersonalInfo("아주아주아주아주아주아주아주아주긴이름", "건국대학교 컴퓨터 공학부", 4, 70),
         PersonalInfo("John Doe","건국대학교 컴퓨터공학부",5,60)
     )
 
