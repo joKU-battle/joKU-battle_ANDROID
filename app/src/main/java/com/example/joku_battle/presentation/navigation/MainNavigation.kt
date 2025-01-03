@@ -35,7 +35,7 @@ fun MainNavigation(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-    var selectedMainBottomTab by remember { mutableStateOf(BottomNavigationItem.HOME) }
+    var selectedMainBottomTab by remember { mutableStateOf<BottomNavigationItem?>(null) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute by remember { derivedStateOf { navBackStackEntry?.destination?.route } }
 
@@ -52,7 +52,7 @@ fun MainNavigation(
                 )
             ) {
                 BottomNavigation(
-                    selectedItem = selectedMainBottomTab,
+                    selectedItem = selectedMainBottomTab!!,
                     onItemSelected = { selectedMainBottomTab = it },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -66,7 +66,12 @@ fun MainNavigation(
                 startDestination = Route.Login
             ) {
                 composable<Route.Login> {
-                    LoginScreen()
+                    LoginScreen(
+                        {
+                            navController.navigate(Route.Home)
+                            selectedMainBottomTab = BottomNavigationItem.HOME
+                        }
+                    )
                 }
 
                 composable<Route.Home> {
@@ -106,7 +111,9 @@ fun MainNavigation(
                 }
 
                 composable<Route.My> {
-                    MyScreen()
+                    MyScreen(
+                        navigateToLogin = {navController.navigate(Route.Login)}
+                    )
                 }
 
             }
@@ -114,29 +121,33 @@ fun MainNavigation(
     }
 
     LaunchedEffect(key1 = selectedMainBottomTab) {  // 하단 탭 선택에 의한 라우팅 처리
-        val targetRoute = when (selectedMainBottomTab) {
-            BottomNavigationItem.HOME -> Route.Home::class.qualifiedName
-            BottomNavigationItem.QUIZ -> Route.Quiz::class.qualifiedName
-            BottomNavigationItem.BATTLE -> Route.Battle::class.qualifiedName
-            BottomNavigationItem.MY -> Route.My::class.qualifiedName
-        } ?: ""
+        selectedMainBottomTab?.let {
+            val targetRoute = when (it) {
+                BottomNavigationItem.HOME -> Route.Home::class.qualifiedName
+                BottomNavigationItem.QUIZ -> Route.Quiz::class.qualifiedName
+                BottomNavigationItem.BATTLE -> Route.Battle::class.qualifiedName
+                BottomNavigationItem.MY -> Route.My::class.qualifiedName
+            } ?: ""
 
-        navController.navigate(targetRoute) {
-            popUpTo(Route.Home) {
-                saveState = true
-                inclusive = false
+            navController.navigate(targetRoute) {
+                popUpTo(Route.Home) {
+                    saveState = true
+                    inclusive = false
+                }
+                launchSingleTop = true
             }
-            launchSingleTop = true
         }
     }
 
     LaunchedEffect(key1 = currentRoute) {   // 뒤로가기에 의한 하단 탭 변경 처리
-        selectedMainBottomTab = when (currentRoute) {
-            Route.Home::class.qualifiedName -> BottomNavigationItem.HOME
-            Route.Quiz::class.qualifiedName -> BottomNavigationItem.QUIZ
-            Route.Battle::class.qualifiedName -> BottomNavigationItem.BATTLE
-            Route.My::class.qualifiedName -> BottomNavigationItem.MY
-            else -> selectedMainBottomTab
+        if (currentRoute != Route.Login::class.qualifiedName) { // 로그인 화면에서는 탭 변경 금지
+            selectedMainBottomTab = when (currentRoute) {
+                Route.Home::class.qualifiedName -> BottomNavigationItem.HOME
+                Route.Quiz::class.qualifiedName -> BottomNavigationItem.QUIZ
+                Route.Battle::class.qualifiedName -> BottomNavigationItem.BATTLE
+                Route.My::class.qualifiedName -> BottomNavigationItem.MY
+                else -> selectedMainBottomTab
+            }
         }
     }
 }
