@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -42,10 +43,11 @@ fun BattleScreen(
 ) {
     val viewModel: FunQuotesViewModel = viewModel()
     val funQuotesList by viewModel.funQuotesList.collectAsStateWithLifecycle()
-    // rank가 99 이하인 항목만 보이도록 필터링
-    val filteredFunQuotesList = remember(funQuotesList) {
-        funQuotesList.filter { it.rank <= 99 }
-    }
+
+    val month = 1
+    val week = 1
+
+    viewModel.fetchJokes(month, week)
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -64,7 +66,7 @@ fun BattleScreen(
             ) {
                 Column() {
                     Text(
-                        text = "1월 1주차 대결",
+                        text = "${month}월 ${week}주차 대결",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -95,8 +97,10 @@ fun BattleScreen(
                     .fillMaxWidth()
                     .padding(top = 30.dp)
             ) {
-                items(filteredFunQuotesList) { funQuotes ->
-                    FunQuotesItem(funQuotes.rank, funQuotes.title, funQuotes.department, funQuotes.userName, funQuotes.recommendCount)
+                itemsIndexed(funQuotesList) { index, joke ->
+                    if(index+1 <= 99){
+                        FunQuotesItem(joke = joke, rank = index + 1)
+                    }
                 }
             }
         }
