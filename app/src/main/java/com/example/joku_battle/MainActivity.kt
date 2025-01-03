@@ -27,30 +27,14 @@ class MainActivity : ComponentActivity() {
             var showSplash by remember { mutableStateOf(true) }
 
             JoKUbattleTheme {
-                if(showSplash){
+                if (showSplash) {
                     SplashScreen {
                         showSplash = false
                     }
-                }else{
+                } else {
                     MainNavigation()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    JoKUbattleTheme {
-        Greeting("Android")
     }
 }

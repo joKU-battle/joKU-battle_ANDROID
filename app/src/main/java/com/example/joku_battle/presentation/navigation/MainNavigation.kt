@@ -26,6 +26,7 @@ import com.example.joku_battle.presentation.my.MyScreen
 import com.example.joku_battle.presentation.quiz.quizchallenge.QuizChallengeScreen
 import com.example.joku_battle.presentation.quiz.QuizScreen
 import com.example.joku_battle.presentation.quiz.quizadd.QuizAddScreen
+import com.example.joku_battle.presentation.start.LoginScreen
 import com.example.joku_battle.presentation.start.SplashScreen
 
 @Composable
@@ -61,8 +62,12 @@ fun MainNavigation(
             NavHost(
                 modifier = Modifier.padding(it),
                 navController = navController,
-                startDestination = Route.Home
+                startDestination = Route.Login
             ) {
+                composable<Route.Login> {
+                    LoginScreen()
+                }
+
                 composable<Route.Home> {
                     HomeScreen()
                 }
