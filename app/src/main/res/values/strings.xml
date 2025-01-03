@@ -44,9 +44,10 @@
     <string name="my_account_password_change">비밀번호 변경</string>
     <string name="my_logout">로그아웃</string>
 
-    <!--SplashScreen-->
+    <!--StartScreen-->
     <string name="splash_title">조KU배틀</string>
     <string name="splash_subtitle">건국대학교 깔깔게시판</string>
+    <string name="login_subtitle">건국대학생만을 위한 깔깔게시판을 시작해보세요!</string>
 
 
     <string name="all_submit">제출하기</string>

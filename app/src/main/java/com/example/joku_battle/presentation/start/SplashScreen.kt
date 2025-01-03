@@ -49,9 +49,12 @@ fun SplashScreen(
             modifier = Modifier.padding(bottom = 2.dp)
         )
         Text(
-            text = stringResource(R.string.splash_subtitle),
+            text = stringResource(R.string.login_subtitle),
             fontSize = 12.sp
         )
+
+
+
     }
 
 }
