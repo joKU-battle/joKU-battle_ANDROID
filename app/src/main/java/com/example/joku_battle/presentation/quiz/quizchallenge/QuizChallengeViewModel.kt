@@ -1,4 +1,4 @@
-package com.example.joku_battle.presentation.quiz.quizchallenge
+package com.example.joku_battle.presentation.quiz
 
 import androidx.lifecycle.ViewModel
 import com.example.joku_battle.presentation.model.QuizChallengeDetail
@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class QuizChallengeViewModel : ViewModel() {
     private val _quizChallengeDetail = MutableStateFlow<QuizChallengeDetail?>(null)
-    val quizChallegeDetail: StateFlow<QuizChallengeDetail?> = _quizChallengeDetail.asStateFlow()
+    val quizChallengeDetail: StateFlow<QuizChallengeDetail?> = _quizChallengeDetail.asStateFlow()
 
     init {
         loadQuizChallengeDetail()
