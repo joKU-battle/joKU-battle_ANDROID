@@ -23,18 +23,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.joku_battle.R
 import com.example.joku_battle.presentation.component.ChangeButton
 import com.example.joku_battle.presentation.component.GrayTextField
+import com.example.joku_battle.presentation.navigation.Route
 import com.example.joku_battle.presentation.quiz.QuizChallengeViewModel
+import com.example.joku_battle.presentation.quiz.quizdialog.QuizDialog
 
 @Composable
-fun QuizChallengeScreen(modifier: Modifier = Modifier) {
+fun QuizChallengeScreen(navigateToQuizScreen: () -> Unit) {
     val viewModel: QuizChallengeViewModel = viewModel()
     val challngeData by viewModel.quizChallengeDetail.collectAsStateWithLifecycle()
 
     var answer by remember { mutableStateOf("") }
     val isButtonEnabled = answer.isNotBlank()
+
+    var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         bottomBar = {
@@ -44,7 +49,7 @@ fun QuizChallengeScreen(modifier: Modifier = Modifier) {
                 fontColor = { if (isButtonEnabled) R.color.black else R.color.white }
             ) {
                 if (isButtonEnabled) {
-                    // 제출 로직
+                    showDialog = true
                 }
             }
         }
@@ -126,6 +131,17 @@ fun QuizChallengeScreen(modifier: Modifier = Modifier) {
                     .height(128.dp)
             )
         }
+
+        if (showDialog) {
+            QuizDialog(false,
+                {
+                    showDialog = false
+                    navigateToQuizScreen()
+                }, {//추천 증가시키는 함수 추가해야함
+                    showDialog = false
+                    navigateToQuizScreen()
+                })
+        }
     }
 
 }
@@ -133,5 +149,6 @@ fun QuizChallengeScreen(modifier: Modifier = Modifier) {
 @Composable
 @Preview(showBackground = true)
 private fun QuizChallengeScreenPreview() {
-    QuizChallengeScreen()
+    val navController = rememberNavController()
+    QuizChallengeScreen({ navController.navigate(Route.Quiz) })
 }
