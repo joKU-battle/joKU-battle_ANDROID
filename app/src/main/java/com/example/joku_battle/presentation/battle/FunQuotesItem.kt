@@ -24,15 +24,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.joku_battle.R
+import com.example.joku_battle.api.dto.response.Joke
 
 @Composable
-fun FunQuotesItem(
-    rank: Int,
-    title: String,
-    department: String,
-    userName: String,
-    recommendCount: Int
-) {
+fun FunQuotesItem(joke: Joke, rank: Int) {
     HorizontalDivider(
         modifier = Modifier
             .fillMaxWidth(),
@@ -57,12 +52,12 @@ fun FunQuotesItem(
                     modifier = Modifier.width(40.dp))
 
                 Column(modifier = Modifier.padding(start = 10.dp)) {
-                    Text(text = title, fontWeight = FontWeight.Bold,
+                    Text(text = joke.content, fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Text(text = "$department $userName",
+                    Text(text = "${joke.userDepartment} ${joke.userName}",
                         fontSize = 14.sp
                         )
                 }
@@ -72,7 +67,7 @@ fun FunQuotesItem(
                 modifier = Modifier
                     .padding(end = 20.dp),
                 //세자리 넘어가면 999+ 로 화면에 표시
-                text = if (recommendCount > 999) "999+ 픽" else "$recommendCount 픽",
+                text = if (joke.pickedCount> 999) "999+ 픽" else "${joke.pickedCount}",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -83,5 +78,6 @@ fun FunQuotesItem(
 @Preview
 @Composable
 private fun FunQuotesItemPreview() {
-    FunQuotesItem(1, "오늘 해커톤인지 모르고 학교 안감ㅋㅋ", "스마트ICT융합공학과", "김재민", 100)
+    val joke = Joke(1,"asd","2025-01-03T20:48:15.228276","asd","asd",1)
+    FunQuotesItem(joke = joke, 1)
 }
