@@ -1,5 +1,6 @@
 package com.example.joku_battle.presentation.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,6 +26,7 @@ import com.example.joku_battle.data.PersonalInfo
 
 @Composable
 fun HomeScreen(){
+    Log.d("home","homehome")
     val dummyLeaderboardList = listOf(
         PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 1, 100),
         PersonalInfo("John Doe", "건국대학교 컴퓨터공학부", 2, 90),

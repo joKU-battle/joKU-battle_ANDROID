@@ -20,18 +20,23 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.joku_battle.R
 import com.example.joku_battle.presentation.component.ChangeButton
 import com.example.joku_battle.presentation.component.GrayTextField
 
 @Composable
-fun QuizAddScreen(modifier: Modifier = Modifier) {
+fun QuizAddScreen(
+    navigateToQuiz: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     val viewModel: QuizAddViewModel = viewModel()
 
-    var problem by remember { mutableStateOf("") }
-    var answer by remember { mutableStateOf("") }
-    val isButtonEnabled = answer.isNotBlank() && problem.isNotBlank()
+    val question by viewModel.question.collectAsStateWithLifecycle()
+    val answer by viewModel.answer.collectAsStateWithLifecycle()
+
+    val isButtonEnabled = answer.isNotBlank() && question.isNotBlank()
 
     Scaffold(
         bottomBar = {
@@ -41,7 +46,8 @@ fun QuizAddScreen(modifier: Modifier = Modifier) {
                 fontColor = { if (isButtonEnabled) R.color.black else R.color.white }
             ) {
                 if (isButtonEnabled) {
-                    // 제출 로직
+                    viewModel.addQuiz()
+                    navigateToQuiz()
                 }
             }
         }
@@ -75,8 +81,8 @@ fun QuizAddScreen(modifier: Modifier = Modifier) {
             )
             Spacer(Modifier.height(10.dp))
             GrayTextField(
-                value = problem,
-                onValueChange = { problem = it },
+                value = question,
+                onValueChange = {viewModel.updateQuestion(it)},
                 placeholder = stringResource(R.string.quiz_add_problem_textfield),
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done,
@@ -95,7 +101,7 @@ fun QuizAddScreen(modifier: Modifier = Modifier) {
             Spacer(Modifier.height(10.dp))
             GrayTextField(
                 value = answer,
-                onValueChange = { answer = it },
+                onValueChange = { viewModel.updateAnswer(it) },
                 placeholder = stringResource(R.string.all_answer_textfield),
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done,

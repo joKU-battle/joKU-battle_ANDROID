@@ -92,7 +92,9 @@ fun MainNavigation(
                 }
 
                 composable<Route.QuizAdd> {
-                    QuizAddScreen()
+                    QuizAddScreen(
+                        { navController.navigate(Route.Quiz) }
+                    )
                 }
 
                 composable<Route.Battle> {
