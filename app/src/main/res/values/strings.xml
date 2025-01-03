@@ -26,6 +26,24 @@
     <string name="quiz_add_answer">이 문제의 정답은 바로..!</string>
     <string name="quiz_add_submit">출제하기</string>
 
+    <!--MyScreen-->
+    <string name="my_title">마이페이지</string>
+    <string name="my_info">건국대학교 %s</string>
+    <string name="my_latest_nickname">%d월 %d주차 %s</string>
+    <string name="my_nickname_title">칭호</string>
+    <string name="my_nicknames">획득한 칭호들</string>
+    <string name="my_quiz_title">퀴즈</string>
+    <string name="my_quizs">내가 낸 퀴즈들</string>
+    <string name="my_right_quizs">맞춘 퀴즈들</string>
+    <string name="my_battle_title">대결</string>
+    <string name="my_battles">내가 작성한 잼얘</string>
+    <string name="my_battle_history">역대 기록</string>
+    <string name="my_account_title">계정</string>
+    <string name="my_account_name_change">이름 변경</string>
+    <string name="my_account_department_change">학과 변경</string>
+    <string name="my_account_password_change">비밀번호 변경</string>
+    <string name="my_logout">로그아웃</string>
+
 
     <string name="all_submit">제출하기</string>
     <string name="all_answer_textfield">정답을 입력해주세요</string>

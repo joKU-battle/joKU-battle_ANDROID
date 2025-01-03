@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class QuizChallengeViewModel : ViewModel() {
     private val _quizChallengeDetail = MutableStateFlow<QuizChallengeDetail?>(null)
-    val quizChallegeDetail: StateFlow<QuizChallengeDetail?> = _quizChallengeDetail.asStateFlow()
+    val quizChallengeDetail: StateFlow<QuizChallengeDetail?> = _quizChallengeDetail.asStateFlow()
 
     init {
         loadQuizChallengeDetail()
