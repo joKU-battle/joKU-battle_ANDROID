@@ -3,6 +3,7 @@ package com.example.joku_battle.presentation.start
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.joku_battle.api.ServicePool
+import com.example.joku_battle.api.TokenManager
 import com.example.joku_battle.api.dto.request.LoginRequestDto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -41,6 +42,10 @@ class LoginViewModel : ViewModel() {
             }.onSuccess { response ->
                 if (response.success) {
                     _loginSuccess.value = true
+                    val token = response.result.token
+                    if (token.isNotBlank()) {
+                        TokenManager.saveToken(token)
+                    }
                 }
             }.onFailure { exception ->
                 exception.printStackTrace()
