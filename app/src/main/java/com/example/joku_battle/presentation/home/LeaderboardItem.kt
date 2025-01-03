@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -17,6 +18,7 @@ import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -25,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.joku_battle.R
 import com.example.joku_battle.api.dto.response.RankingUser
 import com.example.joku_battle.data.PersonalInfo
@@ -76,11 +79,23 @@ fun LeaderBoardItem(personalInfo: RankingUser, rank: Int) {
                         Spacer(modifier = Modifier.size(30.dp))
                     }
                 }
-                Image(
-                    modifier = Modifier.padding(start = 10.dp),
-                    painter = painterResource(id = R.drawable.ic_leaderboard_profile),
-                    contentDescription = "leaderboard_profile"
-                )
+                if(personalInfo.image.isNullOrEmpty()){
+                    Image(
+                        modifier = Modifier.padding(start = 10.dp),
+                        painter = painterResource(id = R.drawable.ic_leaderboard_profile),
+                        contentDescription = "leaderboard_profile"
+                    )
+                }else{
+                    AsyncImage(
+                        model = personalInfo.image,
+                        modifier = Modifier
+                            .padding(start = 10.dp)
+                            .size(38.dp)
+                            .clip(RoundedCornerShape(36.dp)),
+                        contentDescription = "leaderboard_profile",
+                        contentScale = ContentScale.Crop
+                    )
+                }
                 Column(modifier = Modifier.padding(start = 10.dp)) {
                     Text(
                         text = personalInfo.name, fontWeight = FontWeight.Bold,
