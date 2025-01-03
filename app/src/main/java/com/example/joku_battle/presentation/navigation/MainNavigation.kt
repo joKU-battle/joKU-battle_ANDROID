@@ -80,14 +80,19 @@ fun MainNavigation(
 
                 composable<Route.Quiz> {
                     QuizScreen(
-                        { navController.navigate(Route.QuizAdd) },
-                        { navController.navigate(Route.QuizChallenge) }
+                        navigateToAddQuiz = { navController.navigate(Route.QuizAdd) },
+                        navigateToQuizChallenge = { quizId ->
+                            navController.navigate("quiz_challenge/$quizId")
+                        }
                     )
                 }
 
-                composable<Route.QuizChallenge> {
+                composable("quiz_challenge/{quizId}") { backStackEntry ->
+                    val quizId = backStackEntry.arguments?.getString("quizId")?.toIntOrNull()
+                        ?: return@composable
                     QuizChallengeScreen(
-                        { navController.navigate(Route.Quiz)}
+                        quizId = quizId,
+                        navigateToQuizScreen = { navController.navigate(Route.Quiz) }
                     )
                 }
 
@@ -106,19 +111,19 @@ fun MainNavigation(
 
                 composable<Route.BattleChallenge> {
                     BattleChallengeScreen(
-                        { navController.navigate(Route.Battle)}
+                        { navController.navigate(Route.Battle) }
                     )
                 }
 
-                composable<Route.WorldCup>{
+                composable<Route.WorldCup> {
                     WorldCupScreen(
-                        {navController.navigate(Route.Battle)}
+                        { navController.navigate(Route.Battle) }
                     )
                 }
 
                 composable<Route.My> {
                     MyScreen(
-                        navigateToLogin = {navController.navigate(Route.Login)}
+                        navigateToLogin = { navController.navigate(Route.Login) }
                     )
                 }
 

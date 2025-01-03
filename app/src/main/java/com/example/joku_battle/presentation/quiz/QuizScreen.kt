@@ -86,7 +86,9 @@ fun QuizScreen(
                     .padding(top = 30.dp)
             ) {
                 items(quizList) { quizInfo ->
-                    QuizItem(quizInfo, navigateToQuizChallenge)
+                    QuizItem(quizInfo) { quizId ->
+                        navigateToQuizChallenge(quizId)
+                    }
                 }
             }
         }
