@@ -32,7 +32,7 @@ import com.example.joku_battle.presentation.navigation.Route
 @Composable
 fun QuizScreen(
     navigateToAddQuiz: () -> Unit,
-    navigateToQuizChallenge: () -> Unit
+    navigateToQuizChallenge: (Int) -> Unit
 ) {
     val viewModel: QuizListViewModel = viewModel()
     val quizList by viewModel.quizList.collectAsStateWithLifecycle()
@@ -52,7 +52,7 @@ fun QuizScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column() {
+                Column{
                     Text(
                         text = "오늘의 퀴즈는?",
                         fontSize = 24.sp,
