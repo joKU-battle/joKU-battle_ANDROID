@@ -1,4 +1,4 @@
-package com.example.joku_battle.presentation.quiz
+package com.example.joku_battle.presentation.battle.battlechallenge
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -28,17 +27,17 @@ import com.example.joku_battle.presentation.component.ChangeButton
 import com.example.joku_battle.presentation.component.GrayTextField
 
 @Composable
-fun QuizChallengeScreen(modifier: Modifier = Modifier) {
-    val viewModel: QuizChallengeViewModel = viewModel()
-    val challngeData by viewModel.quizChallegeDetail.collectAsStateWithLifecycle()
+fun BattleChallengeScreen(modifier: Modifier = Modifier) {
+    val viewModel: BattleChallengeViewModel = viewModel()
+    val battleRanking by viewModel.battleChallengeRanking.collectAsStateWithLifecycle()
 
     var answer by remember { mutableStateOf("") }
-    var isButtonEnabled = answer.isNotBlank()
+    val isButtonEnabled = answer.isNotBlank()
 
     Scaffold(
         bottomBar = {
             ChangeButton(
-                label = stringResource(R.string.quiz_challenge_submit),
+                label = stringResource(R.string.all_submit),
                 color = { if (isButtonEnabled) R.color.main_yellow else R.color.gray_200 },
                 fontColor = { if (isButtonEnabled) R.color.black else R.color.white }
             ) {
@@ -55,7 +54,7 @@ fun QuizChallengeScreen(modifier: Modifier = Modifier) {
                 .padding(20.dp)
         ) {
             Text(
-                text = challngeData!!.title,
+                text = stringResource(R.string.battle_challenge_title),
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
                 modifier = Modifier.padding(top = 47.dp)
@@ -64,9 +63,7 @@ fun QuizChallengeScreen(modifier: Modifier = Modifier) {
 
             Text(
                 text = stringResource(
-                    id = R.string.quiz_challenge_info,
-                    challngeData!!.department,
-                    challngeData!!.userName
+                    id = R.string.battle_challenge_subtitle
                 ),
                 fontSize = 12.sp
             )
@@ -74,8 +71,8 @@ fun QuizChallengeScreen(modifier: Modifier = Modifier) {
 
             Text(
                 text = stringResource(
-                    id = R.string.quiz_challenge_ranking,
-                    challngeData!!.ranking
+                    id = R.string.battle_challenge_ranking,
+                    battleRanking!!
                 ),
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
@@ -84,31 +81,22 @@ fun QuizChallengeScreen(modifier: Modifier = Modifier) {
 
             Text(
                 text = stringResource(
-                    id = R.string.quiz_challenge_right,
-                    challngeData!!.rightCount
+                    id = R.string.battle_challenge_ranking_sub1
                 ),
                 fontSize = 15.sp,
                 modifier = Modifier.padding(bottom = 10.dp)
             )
             Text(
                 text = stringResource(
-                    id = R.string.quiz_challenge_wrong,
-                    challngeData!!.wrongCount
+                    id = R.string.battle_challenge_ranking_sub2
                 ),
                 fontSize = 15.sp,
                 modifier = Modifier.padding(bottom = 10.dp)
-            )
-            Text(
-                text = stringResource(
-                    id = R.string.quiz_challenge_recommend,
-                    challngeData!!.recommendCount
-                ),
-                fontSize = 15.sp
             )
             Spacer(Modifier.height(40.dp))
 
             Text(
-                text = stringResource(R.string.quiz_challenge_answer),
+                text = stringResource(R.string.battle_challenge_answer),
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
@@ -116,7 +104,7 @@ fun QuizChallengeScreen(modifier: Modifier = Modifier) {
             GrayTextField(
                 value = answer,
                 onValueChange = { answer = it },
-                placeholder = stringResource(R.string.quiz_challenge_answer_textfield),
+                placeholder = stringResource(R.string.battle_challenge_answer_textfield),
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done,
                 shape = 4,
@@ -126,11 +114,4 @@ fun QuizChallengeScreen(modifier: Modifier = Modifier) {
             )
         }
     }
-
-}
-
-@Composable
-@Preview(showBackground = true)
-private fun QuizChallengeScreenPreview() {
-    QuizChallengeScreen()
 }

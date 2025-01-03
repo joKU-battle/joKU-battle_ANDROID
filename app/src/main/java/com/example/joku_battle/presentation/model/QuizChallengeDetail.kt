@@ -1,6 +1,6 @@
 package com.example.joku_battle.presentation.model
 
-data class QuizChallegeDetail(
+data class QuizChallengeDetail(
     val title: String,
     val department: String,
     val userName: String,

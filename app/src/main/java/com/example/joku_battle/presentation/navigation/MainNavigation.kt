@@ -20,9 +20,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.joku_battle.presentation.battle.BattleScreen
+import com.example.joku_battle.presentation.battle.battlechallenge.BattleChallengeScreen
 import com.example.joku_battle.presentation.home.HomeScreen
 import com.example.joku_battle.presentation.my.MyScreen
-import com.example.joku_battle.presentation.quiz.QuizChallengeScreen
+import com.example.joku_battle.presentation.quiz.quizchallenge.QuizChallengeScreen
 import com.example.joku_battle.presentation.quiz.QuizScreen
 
 @Composable
@@ -74,7 +75,11 @@ fun MainNavigation(
                 }
 
                 composable<Route.Battle> {
-                    BattleScreen()
+                    BattleScreen({ navController.navigate(Route.BattleChallenge) })
+                }
+
+                composable<Route.BattleChallenge> {
+                    BattleChallengeScreen()
                 }
 
                 composable<Route.My> {
