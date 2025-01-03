@@ -1,6 +1,7 @@
 package com.example.joku_battle.api
 
 import com.example.joku_battle.BuildConfig
+import com.example.joku_battle.api.service.UserService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -29,5 +30,5 @@ object ApiFactory {
 }
 
 object ServicePool {
-//    val userService = ApiFactory.create<UserService>()
+    val userService = ApiFactory.create<UserService>()
 }
