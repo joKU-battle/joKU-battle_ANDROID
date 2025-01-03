@@ -100,12 +100,14 @@ fun MainNavigation(
                 composable<Route.Battle> {
                     BattleScreen({ navController.navigate(Route.WorldCup) },
                         //이후에 잼얘 추가 화면으로 수정할 예정
-                        { navController.navigate(Route.QuizAdd) }
+                        { navController.navigate(Route.BattleChallenge) }
                     )
                 }
 
                 composable<Route.BattleChallenge> {
-                    BattleChallengeScreen()
+                    BattleChallengeScreen(
+                        { navController.navigate(Route.Battle)}
+                    )
                 }
 
                 composable<Route.WorldCup>{
