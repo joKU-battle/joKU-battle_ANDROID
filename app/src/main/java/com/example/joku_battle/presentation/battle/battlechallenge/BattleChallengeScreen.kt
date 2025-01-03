@@ -27,12 +27,15 @@ import com.example.joku_battle.presentation.component.ChangeButton
 import com.example.joku_battle.presentation.component.GrayTextField
 
 @Composable
-fun BattleChallengeScreen(modifier: Modifier = Modifier) {
+fun BattleChallengeScreen(
+    navigateToBattle: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     val viewModel: BattleChallengeViewModel = viewModel()
     val battleRanking by viewModel.battleChallengeRanking.collectAsStateWithLifecycle()
 
-    var answer by remember { mutableStateOf("") }
-    val isButtonEnabled = answer.isNotBlank()
+    val content by viewModel.content.collectAsStateWithLifecycle()
+    val isButtonEnabled = content.isNotBlank()
 
     Scaffold(
         bottomBar = {
@@ -43,6 +46,8 @@ fun BattleChallengeScreen(modifier: Modifier = Modifier) {
             ) {
                 if (isButtonEnabled) {
                     // 제출 로직
+                    viewModel.addBattle()
+                    navigateToBattle()
                 }
             }
         }
@@ -102,8 +107,8 @@ fun BattleChallengeScreen(modifier: Modifier = Modifier) {
             )
             Spacer(Modifier.height(10.dp))
             GrayTextField(
-                value = answer,
-                onValueChange = { answer = it },
+                value = content,
+                onValueChange = { viewModel.updateContent(it) },
                 placeholder = stringResource(R.string.battle_challenge_answer_textfield),
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done,
