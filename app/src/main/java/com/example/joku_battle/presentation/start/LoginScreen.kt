@@ -1,5 +1,6 @@
 package com.example.joku_battle.presentation.start
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,9 +9,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +34,7 @@ fun LoginScreen(
     val viewModel: LoginViewModel = viewModel()
     val userId by viewModel.userId.collectAsStateWithLifecycle()
     val userPassWord by viewModel.userPassword.collectAsStateWithLifecycle()
+    val loginSuccess by viewModel.loginSuccess.collectAsStateWithLifecycle()
 
     val isButtonEnabled = userId.isNotBlank() && userPassWord.isNotBlank()
 
@@ -70,10 +74,12 @@ fun LoginScreen(
             fontColor = { if (isButtonEnabled) R.color.black else R.color.white }
         ) {
             if (isButtonEnabled) {
-                // 로그인 로직
-                navigateToHome()
+                viewModel.postLogin()
             }
         }
+    }
+    if (loginSuccess) {
+        navigateToHome()
     }
 }
 
