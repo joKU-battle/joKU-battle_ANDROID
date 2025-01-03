@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,9 +33,13 @@ import com.example.joku_battle.presentation.quiz.QuizChallengeViewModel
 import com.example.joku_battle.presentation.quiz.quizdialog.QuizDialog
 
 @Composable
-fun QuizChallengeScreen(navigateToQuizScreen: () -> Unit) {
+fun QuizChallengeScreen(quizId: Int, navigateToQuizScreen: () -> Unit) {
     val viewModel: QuizChallengeViewModel = viewModel()
     val challngeData by viewModel.quizChallengeDetail.collectAsStateWithLifecycle()
+
+    LaunchedEffect(quizId) {
+        viewModel.loadQuizChallengeDetail(quizId)
+    }
 
     var answer by remember { mutableStateOf("") }
     val isButtonEnabled = answer.isNotBlank()
@@ -144,11 +149,4 @@ fun QuizChallengeScreen(navigateToQuizScreen: () -> Unit) {
         }
     }
 
-}
-
-@Composable
-@Preview(showBackground = true)
-private fun QuizChallengeScreenPreview() {
-    val navController = rememberNavController()
-    QuizChallengeScreen({ navController.navigate(Route.Quiz) })
 }
