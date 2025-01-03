@@ -31,7 +31,7 @@ import com.example.joku_battle.presentation.navigation.Route
 
 @Composable
 fun QuizScreen(
-    ToQuizChallenge: () -> Unit
+    navigateToQuizChallenge: () -> Unit
 ) {
     val viewModel: QuizListViewModel = viewModel()
     val quizList by viewModel.quizList.collectAsStateWithLifecycle()
@@ -65,7 +65,7 @@ fun QuizScreen(
                 }
 
                 Button(
-                    onClick = { },
+                    onClick = { navigateToQuizChallenge() },
                     shape = RoundedCornerShape(4.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFFD600),
