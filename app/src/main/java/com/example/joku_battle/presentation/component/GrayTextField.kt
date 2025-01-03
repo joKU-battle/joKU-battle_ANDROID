@@ -34,12 +34,12 @@ fun GrayTextField(
             Text(
                 text = placeholder,
                 color = colorResource(R.color.black),
-                fontSize = 10.sp
+                fontSize = 16.sp
             )
         },
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         textStyle = androidx.compose.ui.text.TextStyle(
-            fontSize = 13.sp
+            fontSize = 16.sp
         ),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.Transparent,
