@@ -24,10 +24,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.joku_battle.R
+import com.example.joku_battle.api.dto.response.QuizzeData
 import com.example.joku_battle.presentation.model.QuizChallengeDetail
 
 @Composable
-fun QuizItem(quizInfo: QuizChallengeDetail, navigateToQuizChallenge: () -> Unit) {
+fun QuizItem(quizInfo: QuizzeData, navigateToQuizChallenge: (Int) -> Unit) {
     HorizontalDivider(
         modifier = Modifier
             .fillMaxWidth(),
@@ -42,7 +43,7 @@ fun QuizItem(quizInfo: QuizChallengeDetail, navigateToQuizChallenge: () -> Unit)
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 15.dp)
-                .clickable { navigateToQuizChallenge() },
+                .clickable { navigateToQuizChallenge(quizInfo.quizId) },
 
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -57,13 +58,13 @@ fun QuizItem(quizInfo: QuizChallengeDetail, navigateToQuizChallenge: () -> Unit)
                 )
                 Column(modifier = Modifier.padding(start = 10.dp)) {
                     Text(
-                        text = quizInfo.title, fontWeight = FontWeight.Bold,
+                        text = quizInfo.question, fontWeight = FontWeight.Bold,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         fontSize = 16.sp
                     )
                     Text(
-                        text = quizInfo.department + " " + quizInfo.userName,
+                        text = quizInfo.userDepartment + " " + quizInfo.userName,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         fontSize = 14.sp
@@ -74,7 +75,7 @@ fun QuizItem(quizInfo: QuizChallengeDetail, navigateToQuizChallenge: () -> Unit)
             Text(
                 modifier = Modifier
                     .padding(end = 20.dp),
-                text = if (quizInfo.recommendCount > 99) "99+ 추천" else quizInfo.recommendCount.toString()+" 추천",
+                text = if (quizInfo.recommendation > 99) "99+ 추천" else quizInfo.recommendation.toString() + " 추천",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -86,6 +87,4 @@ fun QuizItem(quizInfo: QuizChallengeDetail, navigateToQuizChallenge: () -> Unit)
 @Preview
 @Composable
 fun QuizItemPreview() {
-    val quizInfo = QuizChallengeDetail("title", "department", "userName", 1, 1, 1, 38)
-    QuizItem(quizInfo, { })
 }
