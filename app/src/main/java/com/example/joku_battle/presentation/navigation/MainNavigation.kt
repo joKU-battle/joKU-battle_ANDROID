@@ -25,6 +25,7 @@ import com.example.joku_battle.presentation.home.HomeScreen
 import com.example.joku_battle.presentation.my.MyScreen
 import com.example.joku_battle.presentation.quiz.quizchallenge.QuizChallengeScreen
 import com.example.joku_battle.presentation.quiz.QuizScreen
+import com.example.joku_battle.presentation.quiz.quizadd.QuizAddScreen
 
 @Composable
 fun MainNavigation(
@@ -67,11 +68,15 @@ fun MainNavigation(
                 }
 
                 composable<Route.Quiz> {
-                    QuizScreen({ navController.navigate(Route.QuizChallenge) })
+                    QuizScreen({ navController.navigate(Route.QuizAdd) })
                 }
 
                 composable<Route.QuizChallenge> {
                     QuizChallengeScreen()
+                }
+
+                composable<Route.QuizAdd> {
+                    QuizAddScreen()
                 }
 
                 composable<Route.Battle> {
