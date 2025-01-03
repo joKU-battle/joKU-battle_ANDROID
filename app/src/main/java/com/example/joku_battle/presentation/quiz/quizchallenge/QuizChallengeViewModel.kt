@@ -1,28 +1,52 @@
 package com.example.joku_battle.presentation.quiz
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.joku_battle.api.ServicePool
 import com.example.joku_battle.presentation.model.QuizChallengeDetail
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class QuizChallengeViewModel : ViewModel() {
-    private val _quizChallengeDetail = MutableStateFlow<QuizChallengeDetail?>(null)
+    private val _quizChallengeDetail = MutableStateFlow(
+        QuizChallengeDetail(
+            title = "로딩 중...",
+            department = "로딩 중...",
+            userName = "로딩 중...",
+            ranking = 0,
+            rightCount = 0,
+            wrongCount = 0,
+            recommendCount = 0
+        )
+    )
     val quizChallengeDetail: StateFlow<QuizChallengeDetail?> = _quizChallengeDetail.asStateFlow()
 
-    init {
-        loadQuizChallengeDetail()
-    }
+    private val quizService by lazy { ServicePool.quizService }
 
-    private fun loadQuizChallengeDetail() {
-        _quizChallengeDetail.value = QuizChallengeDetail(
-            title = "머리 빡빡 깎은 중이 떠나가면?",
-            department = "스마트ICT융합공학과",
-            userName = "김재민",
-            ranking = 1,
-            rightCount = 24,
-            wrongCount = 38,
-            recommendCount = 39
-        )
+    fun loadQuizChallengeDetail(quizId: Int) {
+        viewModelScope.launch {
+            runCatching {
+                quizService.getQuiz(quizId)
+            }.onSuccess { response ->
+                if (response.success) {
+                    val data = response.result
+                    _quizChallengeDetail.value = QuizChallengeDetail(
+                        title = data.question,
+                        department = data.userDepartment,
+                        userName = data.userName,
+                        ranking = 1,
+                        rightCount = data.correct,
+                        wrongCount = data.wrong,
+                        recommendCount = data.recommendation
+                    )
+                } else {
+                    println("Error: ${response.message}")
+                }
+            }.onFailure { exception ->
+                exception.printStackTrace()
+            }
+        }
     }
 }

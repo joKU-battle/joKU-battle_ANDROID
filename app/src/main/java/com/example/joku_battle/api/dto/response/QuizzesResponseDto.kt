@@ -28,5 +28,9 @@ data class QuizzeData(
     @SerialName("userDepartment")
     val userDepartment: String,
     @SerialName("recommendation")
-    val recommendation: Int
+    val recommendation: Int,
+    @SerialName("correct")
+    val correct: Int,
+    @SerialName("wrong")
+    val wrong: Int
 )
