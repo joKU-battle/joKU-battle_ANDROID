@@ -24,7 +24,97 @@ class QuizListViewModel : ViewModel() {
                 rightCount = 24,
                 wrongCount = 38,
                 recommendCount = 39
-            )
+            ),
+            QuizChallengeDetail(
+                title = "머리 빡빡 깎은 중이 떠나가면?",
+                department = "스마트ICT융합공학과",
+                userName = "김재민",
+                ranking = 1,
+                rightCount = 24,
+                wrongCount = 38,
+                recommendCount = 39
+            ),
+            QuizChallengeDetail(
+                title = "머리 빡빡 깎은 중이 떠나가면?",
+                department = "스마트ICT융합공학과",
+                userName = "김재민",
+                ranking = 1,
+                rightCount = 24,
+                wrongCount = 38,
+                recommendCount = 39
+            ),
+            QuizChallengeDetail(
+                title = "머리 빡빡 깎은 중이 떠나가면?",
+                department = "스마트ICT융합공학과",
+                userName = "김재민",
+                ranking = 1,
+                rightCount = 24,
+                wrongCount = 38,
+                recommendCount = 39
+            ),
+            QuizChallengeDetail(
+                title = "머리 빡빡 깎은 중이 떠나가면?",
+                department = "스마트ICT융합공학과",
+                userName = "김재민",
+                ranking = 1,
+                rightCount = 24,
+                wrongCount = 38,
+                recommendCount = 39
+            ),
+            QuizChallengeDetail(
+                title = "머리 빡빡 깎은 중이 떠나가면?",
+                department = "스마트ICT융합공학과",
+                userName = "김재민",
+                ranking = 1,
+                rightCount = 24,
+                wrongCount = 38,
+                recommendCount = 39
+            ),
+            QuizChallengeDetail(
+                title = "머리 빡빡 깎은 중이 떠나가면?",
+                department = "스마트ICT융합공학과",
+                userName = "김재민",
+                ranking = 1,
+                rightCount = 24,
+                wrongCount = 38,
+                recommendCount = 39
+            ),
+            QuizChallengeDetail(
+                title = "머리 빡빡 깎은 중이 떠나가면?",
+                department = "스마트ICT융합공학과",
+                userName = "김재민",
+                ranking = 1,
+                rightCount = 24,
+                wrongCount = 38,
+                recommendCount = 39
+            ),
+            QuizChallengeDetail(
+                title = "머리 빡빡 깎은 중이 떠나가면?",
+                department = "스마트ICT융합공학과",
+                userName = "김재민",
+                ranking = 1,
+                rightCount = 24,
+                wrongCount = 38,
+                recommendCount = 39
+            ),
+            QuizChallengeDetail(
+                title = "머리 빡빡 깎은 중이 떠나가면?",
+                department = "스마트ICT융합공학과",
+                userName = "김재민",
+                ranking = 1,
+                rightCount = 24,
+                wrongCount = 38,
+                recommendCount = 39
+            ),
+            QuizChallengeDetail(
+                title = "머리 빡빡 깎은 중이 떠나가면?",
+                department = "스마트ICT융합공학과",
+                userName = "김재민",
+                ranking = 1,
+                rightCount = 24,
+                wrongCount = 38,
+                recommendCount = 39
+            ),
         )
     }
 }

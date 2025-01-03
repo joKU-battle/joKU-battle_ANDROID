@@ -59,7 +59,8 @@ fun QuizItem(quizInfo: QuizChallengeDetail) {
             Text(
                 modifier = Modifier
                     .padding(end = 24.dp),
-                text = "score"
+                text = "추천 "+quizInfo.recommendCount,
+                fontWeight = FontWeight.Bold
             )
 
         }
