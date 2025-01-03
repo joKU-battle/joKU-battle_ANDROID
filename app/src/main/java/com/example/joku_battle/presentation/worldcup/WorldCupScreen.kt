@@ -1,5 +1,8 @@
 package com.example.joku_battle.presentation.worldcup
 
+import android.util.Log
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -44,9 +47,15 @@ fun WorldCupScreen(){
     var itemCoordinates by remember { mutableStateOf<Pair<Float, Float>?>(null) }
     var itemSize by remember { mutableStateOf<Pair<Float, Float>?>(null) }
 
+    var visible by remember {
+        mutableStateOf(false)
+    }
+
     val participantList = mutableListOf(
         "1","2","3","4","5","6","7","8"
     )
+
+    Log.d("zz", (itemCoordinates?.second?:0f).toString())
 
     val density = LocalDensity.current
 
@@ -107,14 +116,21 @@ fun WorldCupScreen(){
             val widthInDp = with(density) { width.toDp() }
             val heightInDp = with(density) { height.toDp() }
 
+            val animatedY by animateFloatAsState(
+                targetValue = if (visible) 200f else itemCoordinates!!.second, // 'visible'이 true일 때 200으로 애니메이션
+                animationSpec = tween(durationMillis = 1000)
+            )
+
+            visible = true
+
             Box(
                 modifier = Modifier
                     .graphicsLayer(
                         translationX = x,
-                        translationY = y
+                        translationY = animatedY
                     )
                     .size(widthInDp, heightInDp)
-                    .border(1.dp,Color.Black, RoundedCornerShape(10.dp))
+                    .border(1.dp, Color.Black, RoundedCornerShape(10.dp))
                     .clickable {
                         // 다시 선택 초기화
                         selectedItem = null
@@ -122,7 +138,7 @@ fun WorldCupScreen(){
                     .padding(15.dp)
             ) {
                 Text(
-                    text = (selectedItem + width.toString() + height.toString()) ?: ""
+                    text = (selectedItem + width.toString() + height.toString() + x.toString() + y.toString()) ?: ""
                 )
             }
         }
