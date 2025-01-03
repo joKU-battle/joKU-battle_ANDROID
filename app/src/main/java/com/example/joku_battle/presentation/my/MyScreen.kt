@@ -45,202 +45,216 @@ fun MyScreen(
     val viewModel: MyViewModel = viewModel()
     val myData by viewModel.myDetail.collectAsStateWithLifecycle()
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp)
-    ) {
-        Text(
-            text = stringResource(R.string.my_title),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 16.dp)
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 30.dp, horizontal = 40.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceAround
+    if (myData == null) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            AsyncImage(
-                model = myData!!.imageUrl,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(72.dp)
-                    .clip(RoundedCornerShape(36.dp))
+            Text(
+                text = "로딩 중...",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
             )
-            Spacer(Modifier.width(20.dp))
+        }
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.my_title),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 16.dp)
+            )
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 30.dp, horizontal = 40.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                AsyncImage(
+                    model = myData!!.imageUrl,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(72.dp)
+                        .clip(RoundedCornerShape(36.dp))
+                )
+                Spacer(Modifier.width(20.dp))
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = myData!!.name,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+
+                    Text(
+                        text = stringResource(
+                            R.string.my_info,
+                            myData!!.department
+                        ),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .background(
+                        color = colorResource(R.color.main_yellow),
+                        shape = RoundedCornerShape(50.dp)
+                    )
+                    .padding(horizontal = 20.dp, vertical = 5.dp),
+                horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = myData!!.name,
+                    text = stringResource(
+                        R.string.my_latest_nickname,
+                        myData!!.month,
+                        myData!!.week,
+                        myData!!.nickname
+                    ),
+                    color = colorResource(R.color.white),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold
                 )
-
-                Text(
-                    text = stringResource(
-                        R.string.my_info,
-                        myData!!.department
-                    ),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
             }
+            Spacer(Modifier.height(40.dp))
+
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Divider(
+                    color = colorResource(R.color.gray_300)
+                )
+
+                Column(
+                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.my_nickname_title),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+
+                    Text(
+                        text = stringResource(R.string.my_nicknames),
+                        fontSize = 12.sp
+                    )
+                }
+
+                Divider(
+                    color = colorResource(R.color.gray_300)
+                )
+
+                Column(
+                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.my_quiz_title),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+
+                    Text(
+                        text = stringResource(R.string.my_quizs),
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+
+                    Text(
+                        text = stringResource(R.string.my_right_quizs),
+                        fontSize = 12.sp
+                    )
+                }
+
+                Divider(
+                    color = colorResource(R.color.gray_300)
+                )
+
+                Column(
+                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.my_battle_title),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+
+                    Text(
+                        text = stringResource(R.string.my_battles),
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+
+                    Text(
+                        text = stringResource(R.string.my_battle_history),
+                        fontSize = 12.sp
+                    )
+                }
+
+                Divider(
+                    color = colorResource(R.color.gray_300)
+                )
+
+                Column(
+                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.my_account_title),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+
+                    Text(
+                        text = stringResource(R.string.my_account_name_change),
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+
+                    Text(
+                        text = stringResource(R.string.my_account_department_change),
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+
+                    Text(
+                        text = stringResource(R.string.my_account_password_change),
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+
+                    Text(
+                        text = stringResource(R.string.my_logout),
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .clickable { navigateToLogin() }
+                    )
+                }
+            }
+
         }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-                .background(
-                    color = colorResource(R.color.main_yellow),
-                    shape = RoundedCornerShape(50.dp)
-                )
-                .padding(horizontal = 20.dp, vertical = 5.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(
-                    R.string.my_latest_nickname,
-                    myData!!.month,
-                    myData!!.week,
-                    myData!!.nickname
-                ),
-                color = colorResource(R.color.white),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold
-            )
-        }
-        Spacer(Modifier.height(40.dp))
-
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-        ) {
-            Divider(
-                color = colorResource(R.color.gray_300)
-            )
-
-            Column(
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.my_nickname_title),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 5.dp)
-                )
-
-                Text(
-                    text = stringResource(R.string.my_nicknames),
-                    fontSize = 12.sp
-                )
-            }
-
-            Divider(
-                color = colorResource(R.color.gray_300)
-            )
-
-            Column(
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.my_quiz_title),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 5.dp)
-                )
-
-                Text(
-                    text = stringResource(R.string.my_quizs),
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(bottom = 5.dp)
-                )
-
-                Text(
-                    text = stringResource(R.string.my_right_quizs),
-                    fontSize = 12.sp
-                )
-            }
-
-            Divider(
-                color = colorResource(R.color.gray_300)
-            )
-
-            Column(
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.my_battle_title),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 5.dp)
-                )
-
-                Text(
-                    text = stringResource(R.string.my_battles),
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(bottom = 5.dp)
-                )
-
-                Text(
-                    text = stringResource(R.string.my_battle_history),
-                    fontSize = 12.sp
-                )
-            }
-
-            Divider(
-                color = colorResource(R.color.gray_300)
-            )
-
-            Column(
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.my_account_title),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 5.dp)
-                )
-
-                Text(
-                    text = stringResource(R.string.my_account_name_change),
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(bottom = 5.dp)
-                )
-
-                Text(
-                    text = stringResource(R.string.my_account_department_change),
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(bottom = 5.dp)
-                )
-
-                Text(
-                    text = stringResource(R.string.my_account_password_change),
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(bottom = 5.dp)
-                )
-
-                Text(
-                    text = stringResource(R.string.my_logout),
-                    fontSize = 12.sp,
-                    modifier = Modifier
-                        .clickable { navigateToLogin() }
-                )
-            }
-        }
-
     }
 }
 
 @Composable
 @Preview(showBackground = true)
 private fun MyScreenPreview() {
-    MyScreen(){}
+    MyScreen() {}
 }
