@@ -26,6 +26,7 @@ import com.example.joku_battle.presentation.my.MyScreen
 import com.example.joku_battle.presentation.quiz.quizchallenge.QuizChallengeScreen
 import com.example.joku_battle.presentation.quiz.QuizScreen
 import com.example.joku_battle.presentation.quiz.quizadd.QuizAddScreen
+import com.example.joku_battle.presentation.worldcup.WorldCupScreen
 
 @Composable
 fun MainNavigation(
@@ -91,7 +92,7 @@ fun MainNavigation(
                 }
 
                 composable<Route.My> {
-                    MyScreen()
+                    WorldCupScreen()
                 }
             }
         }

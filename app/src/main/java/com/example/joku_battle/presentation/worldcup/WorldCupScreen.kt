@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -46,14 +47,23 @@ fun WorldCupScreen(){
     var selectedItem by remember { mutableStateOf<String?>(null) }
     var itemCoordinates by remember { mutableStateOf<Pair<Float, Float>?>(null) }
     var itemSize by remember { mutableStateOf<Pair<Float, Float>?>(null) }
+    var centerY by remember { mutableStateOf(0f) }
+
+    var qualifyingRound by remember { mutableStateOf("8강") }
+    var round by remember { mutableIntStateOf(1)}
+    var totalRound by remember { mutableIntStateOf(4)}
 
     var visible by remember {
         mutableStateOf(false)
     }
 
-    val participantList = mutableListOf(
-        "1","2","3","4","5","6","7","8"
-    )
+    var participantList by remember {
+        mutableStateOf(
+            mutableListOf(
+                "1","2","3","4","5","6","7","8"
+            )
+        )
+    }
 
     Log.d("zz", (itemCoordinates?.second?:0f).toString())
 
@@ -63,6 +73,10 @@ fun WorldCupScreen(){
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .onGloballyPositioned { coordinates ->
+                val height = coordinates.size.height
+                centerY = height / 2f
+            }
     ) {
         if (selectedItem == null) {
             Column(
@@ -90,7 +104,7 @@ fun WorldCupScreen(){
                             .align(Alignment.Center)
                     )
                     Text(
-                        text = "8강 1/4",
+                        text = if(qualifyingRound=="결승전") "결승전" else "$qualifyingRound $round/$totalRound",
                         fontSize = 32.sp,
                         fontWeight = FontWeight(700),
                         modifier = Modifier.align(Alignment.Center)
@@ -117,7 +131,7 @@ fun WorldCupScreen(){
             val heightInDp = with(density) { height.toDp() }
 
             val animatedY by animateFloatAsState(
-                targetValue = if (visible) 200f else itemCoordinates!!.second, // 'visible'이 true일 때 200으로 애니메이션
+                targetValue = if (visible) (centerY - height/2f) else itemCoordinates!!.second, // 'visible'이 true일 때 200으로 애니메이션
                 animationSpec = tween(durationMillis = 1000)
             )
 
@@ -132,13 +146,26 @@ fun WorldCupScreen(){
                     .size(widthInDp, heightInDp)
                     .border(1.dp, Color.Black, RoundedCornerShape(10.dp))
                     .clickable {
-                        // 다시 선택 초기화
+                        participantList.removeAt(0)
+                        participantList.removeAt(0)
+                        participantList.add(selectedItem!!)
+                        if (round == 4){
+                            round = 1
+                            totalRound = 2
+                            qualifyingRound = "4강"
+                        }else if(round == 2 && totalRound == 2){
+                            round = 0
+                            totalRound = 0
+                            qualifyingRound = "결승전"
+                        }else round+=1
                         selectedItem = null
+                        visible = false
+                        Log.d("zzz",participantList.toString())
                     }
                     .padding(15.dp)
             ) {
                 Text(
-                    text = (selectedItem + width.toString() + height.toString() + x.toString() + y.toString()) ?: ""
+                    text = selectedItem?: ""
                 )
             }
         }
@@ -241,7 +268,7 @@ fun Battle(
                 }
                 .clickable {
                     onSelectedItemChanged(
-                        firstParticipant,
+                        secondParticipant,
                         Pair(positionB.x, positionB.y),
                         Pair(sizeB.width.toFloat(), sizeB.height.toFloat())
                     )
