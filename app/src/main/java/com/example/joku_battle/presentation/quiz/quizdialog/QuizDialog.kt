@@ -94,10 +94,10 @@ fun QuizDialog(isCorrect: Boolean, onDismiss: () -> Unit, onRecommend: () -> Uni
         confirmButton = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center // 중앙 정렬
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Button(
-                    onClick = { /* 확인 버튼 처리 */ },
+                    onClick = { onDismiss() },
                     shape = RoundedCornerShape(4.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Gray,
@@ -109,9 +109,9 @@ fun QuizDialog(isCorrect: Boolean, onDismiss: () -> Unit, onRecommend: () -> Uni
                 ) {
                     Text("나가기", fontSize = 16.sp)
                 }
-                Spacer(modifier = Modifier.width(8.dp)) // 버튼 간 간격
+                Spacer(modifier = Modifier.width(8.dp))
                 Button(
-                    onClick = { /* 취소 버튼 처리 */ },
+                    onClick = { onRecommend() },
                     shape = RoundedCornerShape(4.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFFD600),
