@@ -58,10 +58,13 @@ fun FunQuotesItem(
 
                 Column(modifier = Modifier.padding(start = 10.dp)) {
                     Text(text = title, fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Text(text = "$department $userName")
+                    Text(text = "$department $userName",
+                        fontSize = 14.sp
+                        )
                 }
             }
             //끝에 위치할 text
@@ -70,6 +73,7 @@ fun FunQuotesItem(
                     .padding(end = 20.dp),
                 //세자리 넘어가면 999+ 로 화면에 표시
                 text = if (recommendCount > 999) "999+ 픽" else "$recommendCount 픽",
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
         }
